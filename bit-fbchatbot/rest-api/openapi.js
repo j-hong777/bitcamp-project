@@ -26,7 +26,8 @@ const searchNewAddress = (type, searchWord) => {
     });  
 };
 
-searchNewAddress('road', '금화로82번길 17');
+searchNewAddress('road', '회기로5길142');
+//searchNewAddress('post', '17072');
 
 /*
 module.exports = {
