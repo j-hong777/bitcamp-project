@@ -48,7 +48,7 @@ const searchNewAddress = (type, searchWord, callback) => {
                 message += '\n';
             }
 
-            callback(message);
+            callback(message); 
         
         });
     });  
