@@ -3,7 +3,7 @@ const request = require('request');
 const searchNewAddress = (type, searchWord) => {
     var uri = 'http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdService/retrieveNewAdressAreaCdService/getNewAddressListAreaCd';
     /* Service Key*/
-    var queryString = '?ServiceKey=' + 'GsN31%2BSeUMF3ak8cQzhKH7uzuRuO2Bo6aToZaQtUDlagK1p%2FcAFo4CpUa8Z91IpnM0XrZR4rDzNb%2Fs9Z7NoRAQ%3D%3D';
+    var queryString = '?ServiceKey=' + process.env.OPENAPI_KEY;
 
     /* dong : 동(읍/면)명 road :도로명[default] post : 우편번호 */
     queryString += '&searchSe=' + type;
@@ -25,9 +25,7 @@ const searchNewAddress = (type, searchWord) => {
         console.log('=> Reponse received', body);
     });  
 };
-
-searchNewAddress('road', '회기로5길142');
-//searchNewAddress('post', '17072');
+searchNewAddress('post' , '17027');
 
 /*
 module.exports = {
