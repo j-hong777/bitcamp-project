@@ -59,6 +59,8 @@ const handleReceivePostback = (event) => {
         menuLed(senderID, payload);
     }else if (menu.startsWith('addr')){
         menuAddr(senderID, payload);
+    } else {
+        sendAPI.sendTextMessage(senderID, "메뉴를 다시 요청하세요.");
     }
 
 /*
