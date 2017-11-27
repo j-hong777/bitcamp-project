@@ -16,14 +16,14 @@ const handleReceiveMessage = (event) => {
    
     var menu = global[senderID].menu;// 사용자의 현재 메뉴
 
-    if (menu == 'calc'){
-       menuCalc(senderID, messageText);
-
-    } else if (messageText == 'help') {
+    if (messageText == 'help') {
         sendAPI.sendMenuMessage(senderID);
         //현재 help를 출력한 상태임을 저장한다.
         global[senderID].menu = 'help';
 
+    } else if (menu == 'calc'){
+            menuCalc(senderID, messageText);
+            
     }else if(messageText.startsWith('searchAddress')){
         try{
         var arr = messageText.split(':')[1].split('=');
@@ -75,7 +75,8 @@ const menuHelp = (senderID, payload) => {
         global[senderID].menu = 'calc'; //이 사용자의 현재 메뉴는 '계산기'이다.
         
     } else if (payload == 'menu_addr'){
-        console.log('주소검색 메뉴를 눌렀네요!')
+        sendAPI.sendAddressSearchMessage(senderID);
+        global[senderID].menu = 'addr';//이 사용자의 현재 메뉴는 '주소검색' 이다.
     }
 
 };
