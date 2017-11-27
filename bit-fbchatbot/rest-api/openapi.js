@@ -51,7 +51,7 @@ const searchNewAddress = (type, searchWord, callback) => {
                     }
                     callback(message);
             }catch (err){
-                callback(message); 
+                callback('주소 검색을 할 수 없습니다.'); 
            }
         
         });
