@@ -97,6 +97,9 @@ const menuCalc = (senderID, messageText) => {
      // 현재 계산기 메뉴일 때는 사용자가 입력한 값이 계산식이라고 가정하고 메시지를 분석한다.
      try{
      var tokens = messageText.split(' ');
+     if (tokens.length !=3)
+        throw '계산 형식 오류.';
+
      var a = parseInt(tokens[0]);
      var op = tokens[1];
      var b = parseInt(tokens[2]);
