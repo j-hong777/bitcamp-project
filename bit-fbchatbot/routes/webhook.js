@@ -74,7 +74,7 @@ router.post('/',  (req, res) => {
           global[senderID] = {
             'user': senderID
           };
-          console.log(senderID, '=================> 세션 객체를 준비했습니다.');
+         
        }
 
        if (event.message) {
