@@ -214,5 +214,6 @@ const sendImageMessage = (recipientId, messageText) => {
   
 module.exports = {
    sendTextMessage,
+   sendMenuMessage,
    sendLedMessage
 };
