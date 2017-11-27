@@ -13,7 +13,7 @@ const handleReceiveMessage = (event) => {
     var messageId = message.mid;
     var messageText = message.text;
     var messageAttachments = message.attachments;
-    console.log('user ===================>', global[senderID].user)
+    console.log('user ===================>', global[senderID].user);
 
     if (messageText == 'help') {
         sendAPI.sendMenuMessage(senderID);
