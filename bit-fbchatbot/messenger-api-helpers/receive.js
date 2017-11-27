@@ -14,7 +14,12 @@ const handleReceiveMessage = (event) => {
     var messageText = message.text;
     var messageAttachments = message.attachments;
    
-    if (messageText == 'help') {
+    var menu = global[senderID].menu;// 사용자의 현재 메뉴
+
+    if (menu == 'calc'){
+       menuCalc(senderID, messageText);
+
+    } else if (messageText == 'help') {
         sendAPI.sendMenuMessage(senderID);
         //현재 help를 출력한 상태임을 저장한다.
         global[senderID].menu = 'help';
@@ -44,6 +49,7 @@ const handleReceivePostback = (event) => {
     "at %d", senderID, recipientID, payload, timeOfPostback);
 
     var menu = global[senderID].menu;
+
     if (menu == 'help'){
         menuHelp(senderID, payload);
     }else if (menu == 'led'){
@@ -65,7 +71,9 @@ const menuHelp = (senderID, payload) => {
         global[senderID].menu = 'led'; //이 사용자의 현재 메뉴는 'led 스위치' 이다.
 
     } else if (payload == 'menu_calc'){
-        console.log('계산기 메뉴를 눌렀네요!')
+        sendAPI.sendTextMessage(senderID, '식을 입력하세요. \n예)2 + 3');
+        global[senderID].menu = 'calc'; //이 사용자의 현재 메뉴는 '계산기'이다.
+        
     } else if (payload == 'menu_addr'){
         console.log('주소검색 메뉴를 눌렀네요!')
     }
@@ -77,13 +85,38 @@ const menuLed = (senderID, payload) => {
     if (payload =='led_on'){
         sendAPI.sendTextMessage(senderID, 'LED를 켭니다.')
         //나중에 스프링 부트에 LED 켜는 명령을 보낼 것이다.
-        
+
     } else if (payload == 'led_off'){
         sendAPI.sendTextMessage(senderID, 'LED를 끕니다.')
         //나중에 스프링 부트에 LED 끄는 명령을 보낼 것이다.
     }
 
 };
+
+const menuCalc = (senderID, messageText) => {
+     // 현재 계산기 메뉴일 때는 사용자가 입력한 값이 계산식이라고 가정하고 메시지를 분석한다.
+     try{
+     var tokens = messageText.split(' ');
+     var a = parseInt(tokens[0]);
+     var op = tokens[1];
+     var b = parseInt(tokens[2]);
+     var result =0;
+     switch (op){
+         case '+': result = a + b ; break;
+         case '-': result = a - b ; break;
+         case '*': result = a * b ; break;
+         case '/': result = a * b ; break;
+         case '%': result = a % b ; break;
+         default:
+          sendAPI.sendTextMessage(senderID, '+, -, *, /, % 연산자만 사용할 수 있습니다.')
+          retrun;
+        }
+        sendAPI.sendTextMessage(senderID, '계산 결과는 ' + result + '입니다.')
+
+        } catch (exception){
+            sendAPI.sendTextMessage(senderID, '계산식이 옳지 않습니다.\n예) 값1 연산자 값2')
+         }
+}
 module.exports = {
     handleReceiveMessage,
     handleReceivePostback
