@@ -1,4 +1,4 @@
-// 메신져 서버에게 메시지를 전달해주는 도구 가져오기
+// 메신저 서버에게 메시지를 전달해주는 도구 가져오기 
 const api = require('./api')
 
 const sendTextMessage = (recipientId, messageText) => {
@@ -35,12 +35,12 @@ const sendMenuMessage = (recipientId) => {
               "type":"postback",
               "title":"계산기",
               "payload":"menu_calc"
-            } ,
+            },
             {
               "type":"postback",
               "title":"주소검색",
               "payload":"menu_addr"
-            } 
+            }
           ]
         }
       }
@@ -49,7 +49,6 @@ const sendMenuMessage = (recipientId) => {
 
   api.callMessagesAPI(messageData);
 };
-
 
 const sendAddressSearchMessage = (recipientId) => {
   var messageData = {
@@ -65,19 +64,19 @@ const sendAddressSearchMessage = (recipientId) => {
           "buttons":[
             {
               "type":"postback",
-              "title":"동 이름",
+              "title":"동이름",
               "payload":"addr_dong"
             },
             {
               "type":"postback",
               "title":"도로명",
               "payload":"addr_road"
-            } ,
+            },
             {
               "type":"postback",
-              "title":"우편변호",
+              "title":"우편번호",
               "payload":"addr_post"
-            } 
+            }
           ]
         }
       }
@@ -87,8 +86,7 @@ const sendAddressSearchMessage = (recipientId) => {
   api.callMessagesAPI(messageData);
 };
 
-
-const sendImageMessage = (recipientId, messageText) => {
+const sendImageMessage = (recipientId) => {
     var messageData = {
       recipient: {
         id: recipientId
@@ -105,9 +103,9 @@ const sendImageMessage = (recipientId, messageText) => {
     };
   
     api.callMessagesAPI(messageData);
-  };
+};
   
-  const sendButton1Message = (recipientId) => {
+const sendButton1Message = (recipientId) => {
     var messageData = {
       recipient: {
         id: recipientId
@@ -134,7 +132,6 @@ const sendImageMessage = (recipientId, messageText) => {
                 "url":"https://www.yahoo.com",
                 "title":"야후"
               }
-   
             ]
           }
         }
@@ -142,10 +139,9 @@ const sendImageMessage = (recipientId, messageText) => {
     };
   
     api.callMessagesAPI(messageData);
-  };
+};
   
-  
-  const sendButton2Message = (recipientId) => {
+const sendButton2Message = (recipientId) => {
     var messageData = {
       recipient: {
         id: recipientId
@@ -155,7 +151,7 @@ const sendImageMessage = (recipientId, messageText) => {
           "type":"template",
           "payload":{
             "template_type":"button",
-            "text":"검색 사이트를 선택하세요!",
+            "text":"전화걸기예",
             "buttons":[
               {
                 "type":"phone_number",
@@ -169,9 +165,9 @@ const sendImageMessage = (recipientId, messageText) => {
     };
   
     api.callMessagesAPI(messageData);
-  };
+};
   
-  const sendLedMessage = (recipientId) => {
+const sendLedMessage = (recipientId) => {
     var messageData = {
       recipient: {
         id: recipientId
@@ -192,7 +188,7 @@ const sendImageMessage = (recipientId, messageText) => {
                 "type":"postback",
                 "title":"OFF",
                 "payload":"led_off"
-              } 
+              }
             ]
           }
         }
@@ -200,10 +196,10 @@ const sendImageMessage = (recipientId, messageText) => {
     };
   
     api.callMessagesAPI(messageData);
-  };
+};
   
-  const sendGenericMessage = (recipientId) => {
-      var messageData = {
+const sendGenericMessage = (recipientId) => {
+    var messageData = {
         recipient: {
           id: recipientId
         },
@@ -244,16 +240,14 @@ const sendImageMessage = (recipientId, messageText) => {
             }
           }
         }
-      };  
+    };  
     
-      api.callMessagesAPI(messageData);
-  };
-    
-  
-module.exports = {
-   sendTextMessage,
-   sendMenuMessage,
-   sendLedMessage,
-   sendAddressSearchMessage
+    api.callMessagesAPI(messageData);
+};
 
+module.exports = {
+    sendTextMessage,
+    sendMenuMessage,
+    sendLedMessage,
+    sendAddressSearchMessage
 };
