@@ -1,6 +1,6 @@
+const api = require('./api')
+
 const postbackHandler = {};
-
-
 
 //postback을 처리할 함수를 등록한다.
 const addPostback = (postback, handler) => {
@@ -11,6 +11,46 @@ const addPostback = (postback, handler) => {
 const getHandler = (postback) => {
     return postbackHandler[postback];
 }
+
+addMessage('/led', (recipientId) => {
+    var messageData = {
+      recipient: {
+        id: recipientId
+      },
+      message: {
+        "attachment":{
+          "type":"template",
+          "payload":{
+            "template_type":"button",
+            "text":"LED 스위치",
+            "buttons":[
+              {
+                "type":"postback",
+                "title":"ON",
+                "payload":"/led/on"
+              },
+              {
+                "type":"postback",
+                "title":"OFF",
+                "payload":"/led/off"
+              }
+            ]
+          }
+        }
+      }
+    };
+  
+    api.callMessagesAPI(messageData);
+});
+
+addMessage('/led/on', (recipientId) => {
+    sendAPI.sendTextMessage(senderID, 'LED를 켭니다.')
+});
+
+addMessage('/led/off', (recipientId) => {
+    sendAPI.sendTextMessage(senderID, 'LED를 끕니다.')
+});
+
 
 module.exports = {
     getHandler    

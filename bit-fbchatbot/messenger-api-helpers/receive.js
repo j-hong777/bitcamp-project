@@ -1,6 +1,7 @@
 const sendAPI = require('./send');
 const openAPI = require('../rest-api/openapi')
 const messageHandler = require('./message-handler')
+const postbackHandler = require('./postback-handler')
 
 
 
@@ -62,6 +63,17 @@ const handleReceivePostback = (event) => {
     console.log("Received postback for user %d and page %d with payload '%s' at %d",
                senderID, recipientID, payload, timeOfPostback);
 
+    // 사용자가 클릭한 버튼의 postback을 처리할 함수를 꺼낸다.
+    var handler = postbackHandler.getHandler(payload);
+
+    if (handler) {//postback을 처리할 함수가 있다면,
+        handler(senderID);// 그 함수를 호출한다.
+    } else{
+        sendAPI.sendTextMessage(senderID, '유효한 명령이 아닙니다.');
+    }
+
+
+/*
     var menu = global[senderID].menu;
 
     if (menu == 'help') {
@@ -73,7 +85,10 @@ const handleReceivePostback = (event) => {
     } else {
         sendAPI.sendTextMessage(senderID, "메뉴를 다시 요청하세요!");
     }
+    */
 };
+
+
 
 const menuHelp = (senderID, payload) => {
     if (payload == 'menu_led') {
@@ -90,16 +105,6 @@ const menuHelp = (senderID, payload) => {
     }
 };
 
-const menuLed = (senderID, payload) => {
-    if (payload == 'led_on') {
-        sendAPI.sendTextMessage(senderID, 'LED를 켭니다.')
-        // 나중에 스프링부트에 LED를 켜는 명령을 보낼 것이다.
-
-    } else if (payload == 'led_off') {
-        sendAPI.sendTextMessage(senderID, 'LED를 끕니다.')
-        // 나중에 스프링부트에 LED를 끄는 명령을 보낼 것이다.
-    }
-};
 
 const menuCalc = (senderID, messageText) => {
     // 현재 계산기 메뉴일 때는 사용자가 입력한 값이 
