@@ -1,13 +1,13 @@
 const api = require('./api')
 
 // message를 받았을 때 그 메세지를 처리할 함수를 보관하는 객체
-const messageHandler = {
+const messageHandler = {// 빈 객체를 만든것임. hash Map을 만든것과 같음.
     //'메시지': 함수
 };
 
 //message를 처리할 함수를 등록한다.
 const addMessage = (message, handler) => {
-    messageHandler[ message] = handler;
+    messageHandler[message] = handler;
 }
 
 //등록된 메시지 핸들러를 찾아서 리턴한다.
@@ -16,7 +16,7 @@ const getHandler = ( message ) => {
 }
 
 //'help' 메세지를 처리할 함수 등록
-addMessage('help', (senderID) => {
+addMessage('help', (recipientId) => {
     var messageData = {
         recipient: {
           id: recipientId
