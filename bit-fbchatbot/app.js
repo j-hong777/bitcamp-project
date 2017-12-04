@@ -1,5 +1,5 @@
-const https = require('https')//운영 서버 접속용
-//const http = require('http')// 로컬 테스트용
+const https = require('https') // 운영 서버용
+//const http = require('http') // 로컬 테스트용
 const express = require('express')
 const fs = require('fs')
 const bodyParser = require('body-parser');
@@ -9,44 +9,47 @@ const request = require('request')
 require('dotenv').config({path: '/home/ec2-user/vars/.env'})
 
 const app = express()
- // json형식으로 클라이언트가 보낸 데이터를 처리하는 객체 등록
- // 이 객체를 등록하지 않으면 json 형식으로 전달 받은 데이터를 다룰 수 없다.
-app.use(bodyParser.json());
-// url인코딩 형식으로 클라이언트가 보낸 데이터를 처리하는 객체 등록
-// 이 객체를 등록하지 않으면 url인코딩 형식으로 전달 받은 데이터를 다룰 수 없다.
+
+// JSON 형식으로 클라이언트가 보낸 데이터를 처리하는 객체 등록
+// => 이 객체를 등록하지 않으면 JSON 형식으로 전달 받은 데이터를 다룰 수 없다.
+app.use(bodyParser.json()); 
+
+// URL 인코딩 형식으로 클라이언트가 보낸 데이터를 처리하는 객체 등록
+// => 이 객체를 등록하지 않으면 URL 인코딩 형식으로 전달 받은 데이터를 다룰 수 없다.
 app.use(bodyParser.urlencoded({extended: true})); 
 
-//클라이언트에서 정적 웹 자원을 요청했을때 그 자원을 찾을 폴더를 지정한다.
-//정적 웹 자원
-//=> 실행하지 않고 그대로 읽어서 클라이언트에게 보내는 파일
-//=> .html, .gir, .jpg, .css, .js 등
+// 클라이언트에서 정적 웹자원을 요청했을 때 그 자원을 찾을 폴더를 지정한다.
+// 정적 웹자원:
+// => 실행하지 않고 그대로 읽어서 클라이언트에게 보내는 파일
+// => .html, .gif, .jpg, .css, .js 등 
 app.use(express.static('public'))
 
-//클라이언트 요청을 처리할 모듈을 가져 온다.
+// 클라이언트 요청을 처리할 모듈을 가져온다.
 //import root from './routes/root.js';
 //import webhook from './routes/webhook.js';
 //import hello from './routes/hello.js';
 
-//url과 그 url의 요청을 처리할 모듈을 설정한다.
-//=> /webhook 으로 시작하는 요청이 들어오면 webhook.js에서 처리
-//=> / 로 시작하는 요청이 들어오면 root.js에서 처리
+// URL와 그 URL의 요청을 처리할 모듈을 설정한다.
+// => /webhook/ 으로 시작하는 요청이 들어오면 webhook.js에서 처리
+// => / 로 시작하는 요청이 들어오면 root.js에서 처리 
 app.use('/', require('./routes/root'));
 app.use('/webhook', require('./routes/webhook'));
 app.use('/hello', require('./routes/hello'));
 
 // 인증서 데이터를 로딩
-// 다음 객체(options)는 node http  서버를 실행할 때 사용한다.
+// => 다음 객체는 node HTTPS 서버를 실행할 때 사용한다.
+// 운영 서버용
 var options = {
   key: fs.readFileSync('/home/ec2-user/vars/custom.key'),
-  cert: fs.readFileSync('/home/ec2-user/vars/www_safeguide_xyz.crt'),
-  ca: fs.readFileSync('/home/ec2-user/vars/www_safeguide_xyz.ca-bundle') 
+  cert: fs.readFileSync('/home/ec2-user/vars/www_eomcs_com.crt'),
+  ca: fs.readFileSync('/home/ec2-user/vars/www_eomcs_com.ca-bundle') 
 }
 
 https.createServer(options, app).listen(9999, function() {
     console.log('서버가 시작되었습니다!')
 })
 
-//로컬테스트용
+// 로컬 테스트용
 /*
 http.createServer(app).listen(9999, function() {
   console.log('서버가 시작되었습니다!')
@@ -54,8 +57,8 @@ http.createServer(app).listen(9999, function() {
 */
 
 
+
 /*
-// Incoming events handling
 function receivedMessage(event) {
     var senderID = event.sender.id;
     var recipientID = event.recipient.id;
@@ -92,22 +95,20 @@ function receivedMessage(event) {
       } else if (messageText == 'button1') {
         sendButton1Message(senderID);
 
-      }else if (messageText == 'button2') {
+      } else if (messageText == 'button2') {
         sendButton2Message(senderID);
 
-      }else if (messageText == 'led') {
+      } else if (messageText == 'led') {
         sendLedMessage(senderID);
 
-      }else {
+      } else {
         sendTextMessage(senderID, "올바른 명령이 아닙니다.");
       }
     } else if (messageAttachments) {
       sendTextMessage(senderID, "Message with attachment received");
     }
 }
-*/
 
-/*
 function receivedPostback(event) {
     var senderID = event.sender.id;
     var recipientID = event.recipient.id;
@@ -122,36 +123,35 @@ function receivedPostback(event) {
   
     // When a postback is called, we'll send a message back to the sender to 
     // let them know it was successful
-    if (payload == 'led_on'){
+    if (payload == 'led_on') {
       sendTextMessage(senderID, "전구를 켜겠습니다.");
       request({
-        uri: 'http://www.safeguide.xyz:8080/chatbot/json/led/on',
+        uri: 'http://eomcs.com:8080/chatbot/json/led/on',
         qs: {'senderID': senderID},
         method: 'POST'
- 
       }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-          console.log('SpringBoot 응답=======>', body)
+          console.log('SpringBoot 응답 ===>', body)
           var obj = JSON.parse(body);
           var senderID = obj.data.senderID;
-          if (obj.state == 'success'){
+          if (obj.state == 'success') {
             sendTextMessage(senderID, "전구-" + obj.data.state);
-          }else {
-            sendTextMessage(senderID, "전구 제어실패!!!");
+          } else {
+            sendTextMessage(senderID, "전구제어 실패!");
           }
-      } else{
-          console.log('요청오류!!!' )
-      }
-    
+        } else {
+          console.log('SpringBoot 요청 오류!')
+          console.log(error)
+        }
       })
-    }else if (payload == 'led_off'){
+    } else if (payload == 'led_off') {
       sendTextMessage(senderID, "전구를 끄겠습니다.");
-    }else {
-      sendTextMessage(senderID, "실행 할 수 없는 명령입니다..");
+    } else {
+      sendTextMessage(senderID, "실행할 수 없는 명령입니다.");
     }
 }
-
 */
+
 
 
 

@@ -14,8 +14,6 @@ const sendTextMessage = (recipientId, messageText) => {
     api.callMessagesAPI(messageData);
 };
 
-
-
 const sendImageMessage = (recipientId) => {
     var messageData = {
       recipient: {
@@ -96,8 +94,6 @@ const sendButton2Message = (recipientId) => {
   
     api.callMessagesAPI(messageData);
 };
-  
-
   
 const sendGenericMessage = (recipientId) => {
     var messageData = {

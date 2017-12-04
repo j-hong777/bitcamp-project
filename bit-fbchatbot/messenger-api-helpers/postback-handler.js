@@ -1,17 +1,18 @@
-const api = require('./api')
+const api = require('./api');
 const sendAPI = require('./send');
 
+// postback을 받았을 때 그 postback을 처리할 함수를 보관하는 객체
 const postbackHandler = {};
 
-//postback을 처리할 함수를 등록한다.
+// postback을 처리할 함수를 등록한다.
 const addPostback = (postback, handler) => {
     postbackHandler[postback] = handler;
 }
 
-//등록된 메시지 핸들러를 찾아서 리턴한다.
+// 등록된 메시지 핸들러를 찾아서 리턴한다.
 const getHandler = (postback) => {
     return postbackHandler[postback];
-}
+};
 
 addPostback('/led', (recipientId) => {
     var messageData = {
@@ -67,39 +68,42 @@ addPostback('/addr', (recipientId) => {
               {
                 "type":"postback",
                 "title":"동이름",
-                "payload":"addr/dong"
+                "payload":"/addr/dong"
               },
               {
                 "type":"postback",
                 "title":"도로명",
-                "payload":"addr/road"
+                "payload":"/addr/road"
               },
               {
                 "type":"postback",
                 "title":"우편번호",
-                "payload":"addr/post"
+                "payload":"/addr/post"
               }
             ]
           }
         }
       }
     };
-  
     api.callMessagesAPI(messageData);
 });
 
 addPostback('/addr/dong', (recipientId) => {
-        sendAPI.sendTextMessage(senderID, '동 이름?');
+    sendAPI.sendTextMessage(recipientId, '동이름?');
 });
-   
+
 addPostback('/addr/road', (recipientId) => {
-        sendAPI.sendTextMessage(senderID, '도로명?');
+    sendAPI.sendTextMessage(recipientId, '도로명?');
 });
 
 addPostback('/addr/post', (recipientId) => {
-        sendAPI.sendTextMessage(senderID, '우편번호?');
+    sendAPI.sendTextMessage(recipientId, '우편번호?');
+});
+
+addPostback('/calc', (recipientId) => {
+    sendAPI.sendTextMessage(recipientId, '식을 입력하세요.\n예)2 + 3');
 });
 
 module.exports = {
-    getHandler    
+    getHandler
 };
