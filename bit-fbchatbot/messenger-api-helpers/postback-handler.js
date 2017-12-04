@@ -45,11 +45,11 @@ addPostback('/led', (recipientId) => {
 });
 
 addPostback('/led/on', (recipientId) => {
-    sendAPI.sendTextMessage(senderID, 'LED를 켭니다.')
+    sendAPI.sendTextMessage(recipientId, 'LED를 켭니다.')
 });
 
-addPostbac('/led/off', (recipientId) => {
-    sendAPI.sendTextMessage(senderID, 'LED를 끕니다.')
+addPostback('/led/off', (recipientId) => {
+    sendAPI.sendTextMessage(recipientId, 'LED를 끕니다.')
 });
 
 
