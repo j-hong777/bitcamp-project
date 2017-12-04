@@ -41,8 +41,8 @@ app.use('/hello', require('./routes/hello'));
 // 운영 서버용
 var options = {
   key: fs.readFileSync('/home/ec2-user/vars/custom.key'),
-  cert: fs.readFileSync('/home/ec2-user/vars/www_eomcs_com.crt'),
-  ca: fs.readFileSync('/home/ec2-user/vars/www_eomcs_com.ca-bundle') 
+  cert: fs.readFileSync('/home/ec2-user/vars/www_safeguide_xyz.crt'),
+  ca: fs.readFileSync('/home/ec2-user/vars/www_safeguide_xyz.ca-bundle') 
 }
 
 https.createServer(options, app).listen(9999, function() {
