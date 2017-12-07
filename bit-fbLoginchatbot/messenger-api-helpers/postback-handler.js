@@ -54,18 +54,11 @@ addPostback('/login', (recipientId) => {
     },
     message: {
       "attachment":{
-        "type":"template",
-        "payload":{
-          "template_type":"button",
-          "text":"LOGIN 페이지",
-          "buttons":[
-            {
-              "type":"web_url",
-              "url":"www.naver.com",
-              "title":"페이스북"
-            }
-          ]
-        }
+        "type":"web_url",
+        "url":"www.facebook.com",
+        "title":"페이스북"
+          
+        
       }
     }
   };
