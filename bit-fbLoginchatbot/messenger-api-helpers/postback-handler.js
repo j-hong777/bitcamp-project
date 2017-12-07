@@ -60,14 +60,9 @@ addPostback('/login', (recipientId) => {
           "text":"LOGIN 페이지",
           "buttons":[
             {
-              "type":"postback",
-              "title":"LOGIN",
-              "payload":"/login/on"
-            },
-            {
-              "type":"postback",
-              "title":"LOGOUT",
-              "payload":"/login/out"
+              "type":"web_url",
+              "url":"www.naver.com",
+              "title":"페이스북"
             }
           ]
         }
