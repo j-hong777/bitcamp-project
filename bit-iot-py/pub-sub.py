@@ -7,14 +7,14 @@ import json
 
 # AWS IoT서버에서 메시지를 받았을 때 호출 될 함수 정의 
 def customCallback(client, userdata, message):
-    print("메시지 수신를 수신하였습니다.\n")
+    print("메시지 수신를 수신하였습니다.")
     print("사서함 이름:")
     print(message.topic)
-    print("\n")
+   
     print("메세지 내용:")
     print(message.payload)
-    print("\n")
-    print("--------------\n")
+  
+    print("--------------")
 
 # AWS IoT서버의 Thing에 접속할 때 사용할 
 host =  "a1lqcwo4cmer5o.iot.ap-northeast-2.amazonaws.com"
