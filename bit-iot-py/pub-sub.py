@@ -12,9 +12,9 @@ def customCallback(client, userdata, message):
     print("사서함 이름: ")
     print(message.topic)
     print("메시지 내용: ")
-    # print(message.payload)
+    #print(message.payload)
     # 사서함에서 받은 JSON 문자열을 객체로 변환
-    dict = json.loads(message.payload.decode('UTF-8'))#map과 딕셔너리와 같은 의미임 키 밸류로 주고 받음
+    dict = json.loads(message.payload.decode('UTF-8'))
     print(dict['message'])
     ledState = dict['led']
     if ledState == "on":

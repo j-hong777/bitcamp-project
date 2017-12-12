@@ -2,8 +2,8 @@
 import RPi.GPIO as GPIO 
 
 
-GPIO.setmod(GPIO.BCM)
-GPIO.setUP(27, GPIO.OUT)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(27, GPIO.OUT)
 
 def onLed(state):
     GPIO.output(27, state)
