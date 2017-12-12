@@ -13,7 +13,7 @@ def customCallback(client, userdata, message):
     print("메시지 내용: ")
     # print(message.payload)
     # 사서함에서 받은 JSON 문자열을 객체로 변환
-    dict = json.loads(message.payload)#map과 딕셔너리와 같은 의미임 키 밸류로 주고 받음
+    dict = json.loads(message.payload.decode('UTF-8'))#map과 딕셔너리와 같은 의미임 키 밸류로 주고 받음
     print(dict['message'])
     print("--------------")
 
