@@ -8,7 +8,7 @@ const dev01 = awsIot.device({
     certPath: "/home/ec2-user/vars/aws-iot/dev01/dev01.cert.pem", 
     caPath: "/home/ec2-user/vars/aws-iot/root-CA.crt", 
     clientId: "fbchatbot",
-    host: "a1lqcwo4cmer5o.iot.ap-northeast-2.amazonaws.com" 
+    host: process.env.DEV01_HOST 
  });
 
 
