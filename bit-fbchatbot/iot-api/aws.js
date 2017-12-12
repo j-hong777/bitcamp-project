@@ -18,7 +18,7 @@ const dev01 = awsIot.device({
    devices['dev01'] = dev01;
 });
 
-function publish(deiceName, topic, dataObj) {
+function publish(deviceName, topic, dataObj) {
     devices[deviceName].publish(topic, JSON.stringify(dataObj));
 }
 module.exports = {
