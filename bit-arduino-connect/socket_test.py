@@ -1,15 +1,15 @@
 import socket
 
-HOST='192.168.10.136'
+HOST=''
 PORT=33333
 
 sever_socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sever_socket.bind((HOST, PORT))
-sever_socket.listen(1)
+sever_socket.listen
 
 connect, info=sever_socket.accept()
 while True:
-    print ('waiting for connection...')
+    print 'waiting for connection...'
     connect, info = sever_socket.accept()
     if connect:
         print('Connected by', info)
