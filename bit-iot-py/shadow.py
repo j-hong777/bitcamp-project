@@ -6,8 +6,16 @@ import argparse
 import json
 import led_api as led
 
-# AWS IoT 서버에서 메시지를 받았을 때 호출될 함수 정의 
+# shadow 명령을 실행한 후 호출될 함수 정의 
 def updateCallback(payload, responseStatus, token):
+    print("update 명령 수행 결과!-------------")
+    print(payload)
+    print(responseStatus)
+    print(token)
+    print("--------------")
+
+def getCallback(payload, responseStatus, token):
+    print("get 명령 수행 결과!-------------")
     print(payload)
     print(responseStatus)
     print(token)
@@ -49,16 +57,21 @@ myShadowClient = AWSIoTMQTTShadowClient(clientId)
 myShadowClient.configureEndpoint(host, 8883)
 myShadowClient.configureCredentials(rootCAPath, privateKeyPath, certificatePath)
 
-# AWSIoTMQTTClient 연결에 대한 제어 정보 설정
+# AWSIoTMQTTShadowClient 연결에 대한 제어 정보 설정
 myShadowClient.configureAutoReconnectBackoffTime(1, 32, 20)
 myShadowClient.configureConnectDisconnectTimeout(10)  # 10 sec
 myShadowClient.configureMQTTOperationTimeout(5)  # 5 sec
 
 # AWS IoT에 등록된 Thing과 연결
 myShadowClient.connect()
-print("shadowconnect\n")
+print("shadow connect\n")
 
+# thing shadow 객체 생성
 myDeviceShadow = myShadowClient.createShadowHandlerWithName("dev01", True)
 
-myJSONPayload = '{"state": {desired":{"led":"on"}}}'
-myDeviceShadow.shadowUpdate(myJSONPayload, updateCallback, 5)
+# 현재 shadow 값 가져오기
+myDeviceShadow.shadowGet(getCallback, 5)
+
+# shadow 값 변경하기
+#myJSONPayload = '{"state":{"desired":{"led":"on"}}}'
+#myDeviceShadow.shadowUpdate(myJSONPayload, updateCallback, 5)
