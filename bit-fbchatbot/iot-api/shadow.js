@@ -3,10 +3,11 @@ var awsIot = require('aws-iot-device-sdk');
 const thingName = 'dev01';
 
 var thingShadows = awsIot.thingShadow({
-    keyPath: "dev01.private.key",
-    certPath: "dev01.cert.pem", 
-    caPath: "root-CA.crt", 
-    host: "a1lqcwo4cmer5o.iot.ap-northeast-2.amazonaws.com" 
+    keyPath: "/home/ec2-user/vars/aws-iot/dev01/dev01.private.key",
+    certPath: "/home/ec2-user/vars/aws-iot/dev01/dev01.cert.pem", 
+    caPath: "/home/ec2-user/vars/aws-iot/root-CA.crt", 
+    clientId: "fbchatbot",
+    host: process.env.DEV01_HOST  
 });
 
 
