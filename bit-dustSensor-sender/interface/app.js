@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // node-aREST
 var rest = require("arest")(app);
-rest.addDevice('http','192.168.10.137');
+rest.addDevice('http','192.168.10.136');
 
 // Interface routes
 app.get('/', function(req, res){
