@@ -4,9 +4,9 @@ const devices = {};
 
 const dev01 = awsIot.device({
 
-    keyPath: "D://key/dev01.private.key",
-    certPath: "D://key/dev01.cert.pem",
-    caPath: "D://key/root-CA.crt",
+    keyPath: "dev01.private.key",
+    certPath: "dev01.cert.pem",
+    caPath: "root-CA.crt",
 
     clientId: "rasp_ardu_subscribe",
 
