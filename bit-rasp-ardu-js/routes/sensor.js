@@ -6,9 +6,11 @@ const awsIot = require('aws-iot-device-sdk');
 const devices = {};
 
 const dev01 = awsIot.device({ 
-
     # AWS 서버에 Thing을 생성한 후 만든 인증서의 사물인증서 파일
     certPath = "dev01.cert.pem",
+    keyPath: "dev01.private.key",
+    certPath: "dev01.cert.pem",
+    caPath: "root-CA.crt",
 
     # AWS 서버에 Thing을 생성한 후 만든 인증서의 개인키 파일 
     KeyPath = "dev01.private.key",
