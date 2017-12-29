@@ -6,20 +6,10 @@ const awsIot = require('aws-iot-device-sdk');
 const devices = {};
 
 const dev01 = awsIot.device({ 
-    # AWS 서버에 Thing을 생성한 후 만든 인증서의 사물인증서 파일
-    certPath = "dev01.cert.pem",
     keyPath: "dev01.private.key",
     certPath: "dev01.cert.pem",
     caPath: "root-CA.crt",
-
-    # AWS 서버에 Thing을 생성한 후 만든 인증서의 개인키 파일 
-    KeyPath = "dev01.private.key",
-
-    # 사물에 대해 발행한 인증서를 검증해 줄 
-    # "인증서를 발행한 회사(인증기관)"의 인증서 파일
-    caPath = "root-CA.crt",
-
-    clientId= "sensor",
+    clientId: "sensor",
 
     /* AWS에 등록한 Thing을 가리키는 URL.
        AWS IoT 사물 관리 페이지에서 "상호작용" 메뉴에서
@@ -34,7 +24,7 @@ dev01.on('connect', function() {
     console.log('AWS IoT의 dev01 장비와 연결 되었음!');
     // 연결에 성공하면 연결된 장비를 목록에 추가한다.
     devices['dev01'] = dev01;
-   });
+});
 
 router.get('/set_dht', (req, res) => {
     console.log('/sensor/set_dht 요청:')
