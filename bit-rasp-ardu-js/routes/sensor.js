@@ -7,11 +7,17 @@ const devices = {};
 
 const dev01 = awsIot.device({ 
 
-    keyPath: "D://key/dev01.private.key",
-    certPath: "D://key/dev01.cert.pem",
-    caPath: "D://key/root-CA.crt",
+    # AWS 서버에 Thing을 생성한 후 만든 인증서의 사물인증서 파일
+    certPath = "dev01.cert.pem",
 
-    clientId: "sensor",
+    # AWS 서버에 Thing을 생성한 후 만든 인증서의 개인키 파일 
+    KeyPath = "dev01.private.key",
+
+    # 사물에 대해 발행한 인증서를 검증해 줄 
+    # "인증서를 발행한 회사(인증기관)"의 인증서 파일
+    caPath = "root-CA.crt",
+
+    clientId= "sensor",
 
     /* AWS에 등록한 Thing을 가리키는 URL.
        AWS IoT 사물 관리 페이지에서 "상호작용" 메뉴에서
