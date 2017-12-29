@@ -16,7 +16,7 @@ const dev01 = awsIot.device({
     /* AWS에 등록한 Thing을 가리키는 URL.
        AWS IoT 사물 관리 페이지에서 "상호작용" 메뉴에서
        HTTPS의 RestAPI를 요청할 때 사용할 Thing의 URL이다. */
-    host: "a1lqcwo4cmer5o.iot.ap-northeast-2.amazonaws.com"
+    host: "a1lqcwo4cmer5o.iot.ap-northeast-2.amazonaws.com" 
     // host: process.env.DEV01_HOST
  });
 
@@ -27,10 +27,6 @@ dev01.on('connect', function() {
     // 연결에 성공하면 연결된 장비를 목록에 추가한다.
     devices['dev01'] = dev01;
    });
-
-
-
-
 
 router.get('/set_dht', (req, res) => {
     console.log('/sensor/set_dht 요청:')
@@ -46,9 +42,7 @@ router.get('/set_dht', (req, res) => {
         "temperature": req.query.temp });
 });
 
-
-
-router.get('/set_dust', (req, res) => {
+router.get('/set_d ust', (req, res) => {
     console.log('/sensor/set_dust 요청:')
     console.log(req.query.devid)
     console.log(req.query.dust, "[ug/m3]")
@@ -60,6 +54,9 @@ router.get('/set_dust', (req, res) => {
         "dustDensityug": req.query.dust });
     
 });
+
+
+
 dev01.on('connect', function() {
     // 이 함수를 호출되었다는 것은 AWS IoT의 Thing과 연결되었다는 의미다.
     console.log('connect');
