@@ -9,13 +9,13 @@ const thingName = 'dev01';
 // AWS서버에 등록된 Things 정볼르 바탕으로 장비를 준비 시킨다.
 var thingShadows = awsIot.thingShadow({
      /*ASW 서버에서 Things을 생성한 후 만든 인증서의 개인키 파일*/
-    keyPath: "dev01.private.key",
+    keyPath: "D://key/dev01.private.key",
 
     /*ASW 서버에 Thing을 생성한 후 만든 인증서의 사물인증서 파일*/
-   certPath: "dev01.cert.pem", //pem은 공개키(public.key)를 인증하는 인증서임.
+   certPath: "D://key/dev01.cert.pem", //pem은 공개키(public.key)를 인증하는 인증서임.
 
     /*사물에 대해 발행한 인증서를 검증해줄 "인증서를 발행한 회사" 의 인증서*/
-     caPath: "root-CA.crt", 
+     caPath: "D://key/root-CA.crt", 
 
       /*다른 클라이언트와 구분하기 위한 임의의 ID*/
    clientId: "client2",
