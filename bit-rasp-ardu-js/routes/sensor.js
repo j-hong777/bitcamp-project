@@ -39,7 +39,7 @@ router.get('/set_dht', (req, res) => {
         "temperature": req.query.temp });
 });
 
-router.get('/set_d ust', (req, res) => {
+router.get('/set_dust', (req, res) => {
     console.log('/sensor/set_dust 요청:')
     console.log(req.query.devid)
     console.log(req.query.dust, "[ug/m3]")
