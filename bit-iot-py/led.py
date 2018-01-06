@@ -13,3 +13,4 @@ time.sleep(2)
 GPIO.output(27, False)
 
 GPIO.cleanup()
+

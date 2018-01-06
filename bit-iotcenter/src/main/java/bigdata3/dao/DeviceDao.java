@@ -6,5 +6,5 @@ import java.util.Map;
 import bigdata3.domain.Device;
 
 public interface DeviceDao {
-  List<Device> selectListByType(Map<String, Object> params);
+  List<Device> selectListByType(Map<String,Object> params);
 }

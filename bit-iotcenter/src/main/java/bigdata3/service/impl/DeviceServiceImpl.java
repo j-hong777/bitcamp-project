@@ -17,13 +17,13 @@ public class DeviceServiceImpl implements DeviceService {
   @Override
   public List<Device> list(String fbUserId, String deviceType) {
     
-    HashMap<String, Object> valueMap = new HashMap<>();
+    HashMap<String,Object> valueMap = new HashMap<>();
     valueMap.put("fbUserId", fbUserId);
     valueMap.put("deviceType", deviceType);
     
     return deviceDao.selectListByType(valueMap);
-
   }
+  
 }
 
 

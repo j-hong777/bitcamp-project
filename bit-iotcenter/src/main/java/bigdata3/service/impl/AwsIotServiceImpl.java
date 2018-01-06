@@ -18,17 +18,12 @@ public class AwsIotServiceImpl implements AwsIotService {
   @Override
   public Map<String, Object> getMessage() {
     Map<String,Object> message = new HashMap<>();
-    message.put("result", topicSubscriber.getResult());
     message.put("humidity", topicSubscriber.getHumidity());
     message.put("temperature", topicSubscriber.getTemperature());
-        
+    message.put("dustDensityug", topicSubscriber.getdustDensityug());
     return message;
   }
   
 }
-
-
-
-
 
 

@@ -18,7 +18,7 @@ public class AlarmControl {
   
   @Autowired ServletContext application;
   
-//  @Autowired IoTUserService userService;
+  //@Autowired IoTUserService userService;
   
   @Autowired DeviceService deviceService;
   
@@ -28,9 +28,9 @@ public class AlarmControl {
   public Object change(
       @PathVariable String serialNo,
       @RequestParam String message) throws Exception {
- /*   
+/*   
     //=> 제품 번호를 이용하여 장비 정보를 가져온다.
-//    IoTDevice device = deviceService.get(serialNo);
+    //IoTDevice device = deviceService.get(serialNo);
 
     //=> 장비가 등록되어 있지 않다면,
     if (device == null) {
@@ -58,9 +58,8 @@ public class AlarmControl {
         message, //=> message 
         "IoT 경고", //=> title
         "감지장치(" + serialNo + ")에 변화가 발생했습니다.")); //=> text
-    
     return new JsonResult(STATE_SUCCESS, result);
-    */
+ */
     return null;
   }
   

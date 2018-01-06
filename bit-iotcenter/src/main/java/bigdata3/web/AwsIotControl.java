@@ -1,4 +1,4 @@
-  package bigdata3.web;
+package bigdata3.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +14,12 @@ public class AwsIotControl {
   @Autowired
   AwsIotService awsIotService;
   
-  @RequestMapping("getHumiTemp")
+  @RequestMapping("iot_control")
   public String getHumiTemp(Model model) {
     
     model.addAttribute("message", awsIotService.getMessage());
     
-    return "awsiot/getHumiTemp";
+    return "awsiot/iot_control";
   }
   
 }

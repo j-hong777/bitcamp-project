@@ -25,18 +25,16 @@ public class DeviceControl {
   
   @Autowired DeviceService deviceService;
   
-  
   @RequestMapping("{deviceType}/status/{fbUserId}")
-  public void ledStatus(
+  public void status(
       @PathVariable String deviceType,
       @PathVariable String fbUserId,
       Model model) throws Exception {
     
-    //=> 장비의 상태정보를 가져온다. 
-    List<Device> devices = deviceService.list(fbUserId, "led");
+    //=> 장비의 상태 정보를 가져온다. 
+    List<Device> devices = deviceService.list(fbUserId, deviceType);
     
-
-    model.addAttribute("result", IoTConstants.SUCCESS);
+    model.addAttribute("result", devices);
   }
   
   

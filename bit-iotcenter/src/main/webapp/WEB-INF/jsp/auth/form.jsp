@@ -22,6 +22,11 @@
 <input type='checkbox' name='saveEmail'> 이메일 저장
 <p><button>로그인</button></p>
 </form>
+
+<form action='facebooklogin.do' method='POST'>
+<p><button>페이스북 로그인</button></p>
+</form>
+
 <jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>
