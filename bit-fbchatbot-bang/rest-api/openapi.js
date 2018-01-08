@@ -4,6 +4,7 @@ const parseString = require('xml2js').parseString;
 
 const searchNewAddress = (type, searchWord, callback) => {
     var uri = 'http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdService/retrieveNewAdressAreaCdService/getNewAddressListAreaCd';
+            
     /* Service Key*/
     var queryString = '?ServiceKey=' + process.env.OPENAPI_KEY;
 

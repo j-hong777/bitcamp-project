@@ -70,7 +70,7 @@ def customCallback(client, userdata, message):
 
 '''
 
-host = "a3urzfjm9f14zj.iot.ap-northeast-2.amazonaws.com"
+host = "a1lqcwo4cmer5o.iot.ap-northeast-2.amazonaws.com"
 rootCAPath = "../root-CA.crt"
 certificatePath = "../dev01.cert.pem"
 privateKeyPath = "../dev01.private.key"
