@@ -25,27 +25,19 @@ public class DeviceControl {
   
   @Autowired DeviceService deviceService;
   
+  
   @RequestMapping("{deviceType}/status/{fbUserId}")
-  public void status(
+  public void Status(
       @PathVariable String deviceType,
       @PathVariable String fbUserId,
       Model model) throws Exception {
     
-    //=> 장비의 상태 정보를 가져온다. 
+    //=> 장비의 상태 정보를 가져온다.ss
     List<Device> devices = deviceService.list(fbUserId, deviceType);
-    
+ 
     model.addAttribute("result", devices);
   }
   
   
   
 }
-
-
-
-
-
-
-
-
-

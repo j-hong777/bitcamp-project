@@ -7,6 +7,7 @@ public class Device {
   int userNo;
   String status;
   
+  
   public int getDeviceNo() {
     return deviceNo;
   }
@@ -38,5 +39,5 @@ public class Device {
     this.status = status;
   }
   
-  
+
 }

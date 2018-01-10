@@ -20,7 +20,7 @@
       width:600px;
       margin:45px auto;
     }
-    
+
     @media screen and (max-width: 480px) {
 
       button {
@@ -110,7 +110,7 @@
                   </div><!-- /.modal-dialog -->
                 </div>
   </div>
-                
+
   <!-- Main -->
   <div id="main">
     <section class="wrapper">
@@ -162,12 +162,13 @@
                         <ul class="list-group">
                           <li class="list-group-item">기기 전원상태
                           <label>
-                            <input name="switch-field-1" class="ace ace-switch ace-switch-3" type="checkbox" />
+                            <input data-device="humidifier" name="switch-humidifier-1" class="ace ace-switch ace-switch-3 iot-switch" type="checkbox" />
                             <span class="lbl"></span>
+
                           </label></li>
                           <li class="list-group-item">Auto Setting 활성
                           <label>
-                            <input name="switch-field-2" class="ace ace-switch ace-switch-2" type="checkbox" />
+                            <input data-device="humidifier_auto" name="switch-humidifier_auto-2" class="ace ace-switch ace-switch-2 iot-switch" type="checkbox" />
                             <span class="lbl"></span>
                           </label></li>
                           <li class="list-group-item">Auto Setting 설정온도 : 18도</li>
@@ -177,8 +178,8 @@
                   </div>
                   <a href="#my-modal" class="button" role="button" data-toggle="modal">온도관리</a>
                 </div>
-                
-                
+
+
                 <div class="col align-center">
                   <div class="image round fit">
                     <img src="${pageContext.servletContext.contextPath}/images/clean.jpg" alt="" />
@@ -195,12 +196,12 @@
                         <ul class="list-group">
                           <li class="list-group-item">기기 전원상태
                           <label>
-                            <input name="switch-field-3" class="ace ace-switch ace-switch-3" type="checkbox" />
+                            <input data-device="humidifier" name="switch-humidifier-3" class="ace ace-switch ace-switch-3 iot-switch" type="checkbox" />
                             <span class="lbl"></span>
                           </label></li>
                           <li class="list-group-item">Auto Setting 활성
                           <label>
-                            <input name="switch-field-4" class="ace ace-switch ace-switch-2" type="checkbox" />
+                            <input data-device="humidifier_auto" name="switch-humidifier_auto-4" class="ace ace-switch ace-switch-2 iot-switch" type="checkbox" />
                             <span class="lbl"></span>
                           </label></li>
                           <li class="list-group-item">Auto Setting 설정습도 : 50%</li>
@@ -210,7 +211,7 @@
                   </div>
                   <a href="#" class="button">습도관리</a>
                 </div>
-                
+
                 <div class="col align-center">
                   <div class="image round fit">
                     <img src="${pageContext.servletContext.contextPath}/images/fine_dust01.jpg" alt="" />
@@ -228,12 +229,12 @@
                           <li class="list-group-item">현재 상태 : 나쁨</li>
                           <li class="list-group-item">기기 전원상태
                           <label>
-                            <input name="switch-field-5" class="ace ace-switch ace-switch-3" type="checkbox" />
+                            <input data-device="ventilator" name="switch-ventilator-5" class="ace ace-switch ace-switch-3 iot-switch" type="checkbox" />
                             <span class="lbl"></span>
                           </label></li>
                           <li class="list-group-item">Auto Setting 활성
                           <label>
-                            <input name="switch-field-6" class="ace ace-switch ace-switch-2" type="checkbox" />
+                            <input data-device="ventilator_auto" name="switch-ventilator_auto-6" class="ace ace-switch ace-switch-2 iot-switch" type="checkbox" />
                             <span class="lbl"></span>
                           </label></li>
                           <li class="list-group-item">Auto Setting 설정 미세먼지 : 10μg/m3</li>
@@ -272,7 +273,7 @@ setInterval(function() {
       <p>&copy; Untitled. All rights reserved. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
     </div>
   </footer>
-  
+
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="${pageContext.servletContext.contextPath}/assets/js/bootstrap.min.js"></script>
   <script src="${pageContext.servletContext.contextPath}/assets/js/ace-elements.min.js"></script>
@@ -284,21 +285,33 @@ setInterval(function() {
   <script type="text/javascript">
       jQuery(function($) {
         $('.modal.aside').ace_aside();
-        
+
         $('#aside-inside-modal').addClass('aside').ace_aside({container: '#my-modal > .modal-dialog'});
-        
+
         //$('#top-menu').modal('show')
-        
+
         $(document).one('ajaxloadstart.page', function(e) {
           //in ajax mode, remove before leaving page
           $('.modal.aside').remove();
           $(window).off('.aside')
         });
-        
-        
+
+
         //make content sliders resizable using jQuery UI (you should include jquery ui files)
         //$('#right-menu > .modal-dialog').resizable({handles: "w", grid: [ 20, 0 ], minWidth: 200, maxWidth: 600});
       })
+      
+      $('.iot-switch').on('change', function(event) {
+    	  var tag = $(event.target);
+    	  var device = tag.attr('data-device');
+    	  var url = '${pageContext.servletContext.contextPath}/awsiot/setState?device=' + device + 
+    			        "&state=" + (tag.prop("checked")? "on" : "off");
+    	  console.log(url);
+    	  $.get(url, function(data) {
+    		  alert(data);
+    	  })
+      });
+      
     </script>
 </body>
 </html>

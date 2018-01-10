@@ -1,6 +1,5 @@
 package bigdata3.web.json;
 
-
 import static bigdata3.web.json.JsonResult.STATE_SUCCESS;
 
 import java.util.List;
@@ -19,7 +18,7 @@ import bigdata3.util.EmailAgent;
 @RestController("json.DeviceControl")
 @RequestMapping("/json/iot/")
 public class DeviceControl {
-  
+
   @Autowired ServletContext application;
   
   @Autowired EmailAgent emailAgent;
@@ -31,7 +30,6 @@ public class DeviceControl {
       @PathVariable String deviceType,
       @PathVariable String fbUserId) throws Exception {
     
-    //=> 장비의 상태 정보를 가져온다. 
     List<Device> devices = deviceService.list(fbUserId, deviceType);
     
     return new JsonResult(STATE_SUCCESS, devices);
@@ -39,7 +37,10 @@ public class DeviceControl {
   
 }
 
-
+/* 사용법
+[장비등록]
+=> http://localhost:8080/device/json/reset/시리얼번호
+ */
 
 
 

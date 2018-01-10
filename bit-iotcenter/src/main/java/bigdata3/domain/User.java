@@ -7,6 +7,7 @@ public class User {
   String password;
   String fbUserId;
   
+  
   public int getUserNo() {
     return userNo;
   }
