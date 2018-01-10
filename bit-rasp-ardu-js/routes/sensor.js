@@ -7,9 +7,9 @@ const devices = {};
 
 const dev01 = awsIot.device({
 
-    keyPath: "../dev01.private.key",
-    certPath: "../dev01.cert.pem",
-    caPath: "../root-CA.crt",
+    keyPath: "/home/pi/git/bitcamp-project/bit-rasp-ardu-js/dev01.private.key",
+    certPath: "/home/pi/git/bitcamp-project/bit-rasp-ardu-js/dev01.cert.pem",
+    caPath: "/home/pi/git/bitcamp-project/bit-rasp-ardu-js/root-CA.crt",
 
     clientId: "sensor",
 
