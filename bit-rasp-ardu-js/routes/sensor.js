@@ -7,16 +7,16 @@ const devices = {};
 
 const dev01 = awsIot.device({
 
-    keyPath: "D://key/dev01.private.key",
-    certPath: "D://key/dev01.cert.pem",
-    caPath: "D://key/root-CA.crt",
+    keyPath: "../dev01.private.key",
+    certPath: "../dev01.cert.pem",
+    caPath: "../root-CA.crt",
 
     clientId: "sensor",
 
     // AWS에 등록한 Thing을 가리키는 URL.
     // AWS IoT 사물 관리 페이지에서 "상호작용" 메뉴에서
     // HTTPS의 RestAPI를 요청할 때 사용할 Thing의 URL이다.
-    host: "a3ag6xqca3ze3x.iot.ap-northeast-2.amazonaws.com"
+    host: "a1lqcwo4cmer5o.iot.ap-northeast-2.amazonaws.com"
     // host: process.env.DEV01_HOST
 
  });
