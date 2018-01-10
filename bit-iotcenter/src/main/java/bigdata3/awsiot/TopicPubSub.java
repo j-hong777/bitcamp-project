@@ -14,7 +14,7 @@ import com.amazonaws.services.iot.client.sample.sampleUtil.SampleUtil.KeyStorePa
 import com.google.gson.Gson;
 
 @Component
-public class TopicSubscriber {
+public class TopicPubSub {
 
   private final String Topic1 = "topic_1";
   private final AWSIotQos Topic1Qos = AWSIotQos.QOS0;
@@ -45,7 +45,7 @@ public class TopicSubscriber {
     return dustDensityug;
   }
 
-  public TopicSubscriber() {
+  public TopicPubSub() {
     if (awsIotClient == null && certificateFile != null && privateKeyFile != null) {
       KeyStorePasswordPair pair = SampleUtil.getKeyStorePasswordPair(
           certificateFile,
@@ -59,17 +59,17 @@ public class TopicSubscriber {
     }
 
     if (awsIotClient == null) {
-        throw new IllegalArgumentException("인증서와 신용장이 유효하지 않아 AWSIotMqttClient 생성 실패!");
+        throw new IllegalArgumentException("?��증서?? ?��?��?��?�� ?��?��?���? ?��?�� AWSIotMqttClient ?��?�� ?��?��!");
     }
 
     try {
       awsIotClient.connect();
-      System.out.println("AWS IoT 서버에 연결됨!");
+      System.out.println("AWS IoT ?��버에 ?��결됨!");
 
       awsIotClient.subscribe(new AWSIotTopic(Topic1, Topic1Qos) {
         @Override
         public void onMessage(AWSIotMessage message) {
-          // 이 메서드는 서버에서 메시지를 수신 할 때 마다 호출된다.
+          // ?�� 메서?��?�� ?��버에?�� 메시�?�? ?��?�� ?�� ?�� 마다 ?��출된?��.
           //System.out.println(System.currentTimeMillis() + ": <<< " + message.getStringPayload());
 
 
@@ -86,17 +86,17 @@ public class TopicSubscriber {
         }
       }, true);
 
-      System.out.printf("'%s' 구독중...", Topic1);
+      System.out.printf("'%s' 구독�?...", Topic1);
 
     } catch (Exception e) {
-      throw new RuntimeException("AWS IoT 서버에 연결 실패!");
+      throw new RuntimeException("AWS IoT ?��버에 ?���? ?��?��!");
     }
   }
-  
+  /*
   public void publish(String payload) throws AWSIotException {
     awsIotClient.publish(Topic1, payload);
   }
-  
+  */
   public void publish(String topic, String payload) throws AWSIotException {
     awsIotClient.publish(topic, payload);
   }
