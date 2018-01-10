@@ -253,12 +253,6 @@
     </section>
   </div>
 
-  <!-- 5초 간격으로 새로고침 -->
-<script>
-setInterval(function() {
-  location.reload();
-}, 5000);
-</script>
 
 
   <!-- Footer -->
