@@ -204,8 +204,9 @@ addMessage("미세먼지", (recipientId) => {
       }
     }
   };
+  var dust = global.dust;
 
-  sendAPI.sendTextMessage(recipientId, '현재미세먼지: ' + global.dust + '[ug/m3]');
+  sendAPI.sendTextMessage(recipientId, '현재미세먼지: ' + dust + '[ug/m3]');
   api.callMessagesAPI(messageData);
 })
 
