@@ -87,6 +87,11 @@ function subscribe (message, temp, callback) {
         var temp = obj.temp
         var humi = obj.humi
         var dust = obj.dust
+
+        global.temp = obj.temp;
+        global.humi = obj.humi;
+        global.dust = obj.dust;
+        
     callback();
     //callback(humi);
     //callback(dust);
