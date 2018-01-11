@@ -90,14 +90,14 @@ function subscribe (message, temp, callback) {
         var humi = obj.humi
         var dust = obj.dust
 
-        global.temp = temp;
-        global.humi = humi;
-        global.dust = dust;
+       // global.temp = temp;
+      //  global.humi = humi;
+       // global.dust = dust;
      
 
-    callback();
+    callback(temp);
     //callback(humi);
-    //callback(dust);
+    callback(dust);
     });
 }
 
