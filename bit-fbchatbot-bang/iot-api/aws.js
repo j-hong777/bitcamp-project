@@ -60,6 +60,8 @@ dev01.on('message', function(topic, payload) {
     global.temp = obj.temp;
     global.humi = obj.humi;
     global.dust = obj.dust;
+    console.log(global.temp);
+    console.log(global.humi);
     console.log(global.dust);
        
     console.log('-------------------------');
