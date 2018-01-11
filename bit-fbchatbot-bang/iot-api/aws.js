@@ -55,9 +55,14 @@ dev01.on('message', function(topic, payload) {
     var obj = JSON.parse(dataObj)
     console.log('받은 메시지:', obj);
     var temp = obj.temp
+    var humi = obj.humi
+    var dust = obj.dust
     console.log(temp);
+    console.log(humi);
+    console.log(dust);
     global.temp = obj.temp;
     global.humi = obj.humi;
+    global.dust = obj.dust;
     console.log('-------------------------');
 
 });
@@ -80,7 +85,10 @@ function subscribe (message, temp, callback) {
         var obj = JSON.parse(dataObj)
         var temp = obj.temp
         var humi = obj.humi
-    callback(temp);
+        var dust = obj.dust
+    callback();
+    //callback(humi);
+    //callback(dust);
     });
 }
 
