@@ -59,7 +59,7 @@ dev01.on('message', function(topic, payload) {
     var dust = obj.dust;
     global.temp = obj.temp;
     global.humi = obj.humi;
-    global.humi = obj.dust;
+    global.dust = obj.dust;
     console.log(global.dust);
        
     console.log('-------------------------');
