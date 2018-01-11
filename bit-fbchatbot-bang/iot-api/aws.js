@@ -67,6 +67,9 @@ dev01.on('message', function(topic, payload) {
     console.log('-------------------------');
 
 });
+    global.temp = obj.temp;
+    global.humi = obj.humi;
+    global.dust = obj.dust;
 /*
 function subscribe (deviceName, topic, callback) {
     devices[deviceName].on('message', function(topic, payload) {
@@ -88,10 +91,8 @@ function subscribe (message, temp, callback) {
         var humi = obj.humi
         var dust = obj.dust
 
-        global.temp = obj.temp;
-        global.humi = obj.humi;
-        global.dust = obj.dust;
-        
+     
+
     callback();
     //callback(humi);
     //callback(dust);
