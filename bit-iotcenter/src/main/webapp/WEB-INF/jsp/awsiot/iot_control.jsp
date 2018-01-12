@@ -155,20 +155,19 @@
                       <div class="panel-heading">
                         <h4 class="panel-title">
                           <!-- AWSIoT에 들어간 실내 온도 값-->
-                          <a data-toggle="collapse" href="#collapse1">현재온도 : ${message.temperature} °C<br></a>
-                        </h4>
+                          <a data-toggle="collapse" href="#collapse1">현재온도 : <span id="temperature">${message.temperature}</span>
                       </div>
                       <div id="collapse1" class="panel-collapse collapse">
                         <ul class="list-group">
                           <li class="list-group-item">기기 전원상태
                           <label>
-                            <input data-device="humidifier" name="switch-humidifier-1" class="ace ace-switch ace-switch-3 iot-switch" type="checkbox" />
+                            <input data-device="temperature" name="switch-humidifier-1" class="ace ace-switch ace-switch-3 iot-switch" type="checkbox" />
                             <span class="lbl"></span>
 
                           </label></li>
                           <li class="list-group-item">Auto Setting 활성
                           <label>
-                            <input data-device="humidifier_auto" name="switch-humidifier_auto-2" class="ace ace-switch ace-switch-2 iot-switch" type="checkbox" />
+                            <input data-device="temperature_auto" name="switch-humidifier_auto-2" class="ace ace-switch ace-switch-2 iot-switch" type="checkbox" />
                             <span class="lbl"></span>
                           </label></li>
                           <li class="list-group-item">Auto Setting 설정온도 : 18도</li>
@@ -189,7 +188,7 @@
                       <div class="panel-heading">
                         <h4 class="panel-title">
                           <!-- AWSIoT에 들어간 실내 습도 값-->
-                          <a data-toggle="collapse" href="#collapse2">현재습도 : ${message.humidity} %<br></a>
+                          <a data-toggle="collapse" href="#collapse2">현재습도 : <span id="humidity">${message.humidity}</span> %<br></a>
                         </h4>
                       </div>
                       <div id="collapse2" class="panel-collapse collapse">
@@ -221,7 +220,7 @@
                       <div class="panel-heading">
                         <h4 class="panel-title">
                             <!-- AWSIoT에 들어간 실내 미세먼지 값-->
-                          <a data-toggle="collapse" href="#collapse3">현재 실내 미세먼지: ${message.dustDensityug} [ug/m3]<br></a>
+                          <a data-toggle="collapse" href="#collapse3">현재 실내 미세먼지: <span id="dustDensityug">${message.dustDensityug}</span> [ug/m3]<br></a>
                         </h4>
                       </div>
                       <div id="collapse3" class="panel-collapse collapse">
@@ -252,8 +251,6 @@
       </div>
     </section>
   </div>
-
-
 
   <!-- Footer -->
   <footer id="footer">
@@ -296,16 +293,64 @@
       })
       
       $('.iot-switch').on('change', function(event) {
-    	  var tag = $(event.target);
-    	  var device = tag.attr('data-device');
-    	  var url = '${pageContext.servletContext.contextPath}/awsiot/setState?device=' + device + 
-    			        "&state=" + (tag.prop("checked")? "on" : "off");
-    	  console.log(url);
-    	  $.get(url, function(data) {
-    		  alert(data);
-    	  })
+          var tag = $(event.target);
+          var device = tag.attr('data-device');
+          var url = '${pageContext.servletContext.contextPath}/awsiot/setState?device=' + device + 
+                        "&state=" + (tag.prop("checked")? "on" : "off");
+          console.log(url);
+          $.get(url, function(data) {
+              alert(data);
+          })
+      });
+      <!-- 
+      $('.iot-switch').on('change', function(event) {
+          var tag = $(event.target);
+          var device = tag.attr('data-device');
+          var url = '${pageContext.servletContext.contextPath}/awsiot/setState?device=' + device + 
+                    "&state=" + (tag.prop("checked")? "on" : "off");
+          console.log(url);
+          $.get(url, function(data) {
+            alert(data);
+          })
+        });
+      -->
+      setInterval(function() {
+          $.getJSON('${pageContext.servletContext.contextPath}/awsiot/iot_sensor_state', function(data) {
+              $('#humidity').html(data.humidity);
+              $('#temperature').html(data.temperature);
+              $('#dustDesityug').html(data.dustDensityug);
+              
+        })
+      }, 5000);
+      
+      $('#collapse1').on('shown.bs.collapse', function () {
+          //$('input[data-device=temperature]').prop('checked', true)
+        });
+        
+        $('#collapse2').on('shown.bs.collapse', function () {
+        $.getJSON('${pageContext.servletContext.contextPath}/awsiot/iot_control_state', function(data) {
+          if (data.humidifier == "on") {
+              $('input[data-device=humidifier]').prop('checked', true)
+          } else {
+              $('input[data-device=humidifier]').prop('checked', false)
+          }
+              
+        })
       });
       
-    </script>
+      $('#collapse3').on('shown.bs.collapse', function () {
+        $.getJSON('${pageContext.servletContext.contextPath}/awsiot/iot_control_state', function(data) {
+          if (data.ventilator == "on") {
+              $('input[data-device=ventilator]').prop('checked', true)
+          } else {
+              $('input[data-device=ventilator]').prop('checked', false)
+          }
+              
+        })
+      });
+      
+      
+      
+      </script>
 </body>
 </html>

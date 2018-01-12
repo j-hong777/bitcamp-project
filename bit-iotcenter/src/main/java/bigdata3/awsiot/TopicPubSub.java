@@ -17,7 +17,9 @@ import com.google.gson.Gson;
 public class TopicPubSub {
 
   private final String Topic1 = "topic_1";
+  private final String Topic2 = "topic_2";
   private final AWSIotQos Topic1Qos = AWSIotQos.QOS0;
+  private final AWSIotQos Topic2Qos = AWSIotQos.QOS0;
   private AWSIotMqttClient awsIotClient;
 
   private String clientEndpoint = "a1lqcwo4cmer5o.iot.ap-northeast-2.amazonaws.com";
@@ -30,6 +32,8 @@ public class TopicPubSub {
   private String humidity;
   private String temperature;
   private String dustDensityug;
+  private String humidifier = "off";
+  private String ventilator = "off";
   /*
   public String getResult() {
     return result;
@@ -44,52 +48,85 @@ public class TopicPubSub {
   public String getdustDensityug() {
     return dustDensityug;
   }
+  public String getHumidifier() {
+    return humidifier;
+  }
+  public String getVentilator() {
+    return ventilator;
+  }
+
 
   public TopicPubSub() {
-    if (awsIotClient == null && certificateFile != null && privateKeyFile != null) {
-      KeyStorePasswordPair pair = SampleUtil.getKeyStorePasswordPair(
-          certificateFile,
-          privateKeyFile);
-
-      awsIotClient = new AWSIotMqttClient(
-          clientEndpoint,
-          clientId,
-          pair.keyStore,
-          pair.keyPassword);
-    }
-
-    if (awsIotClient == null) {
-        throw new IllegalArgumentException("?��증서?? ?��?��?��?�� ?��?��?���? ?��?�� AWSIotMqttClient ?��?�� ?��?��!");
-    }
-
     try {
-      awsIotClient.connect();
-      System.out.println("AWS IoT ?��버에 ?��결됨!");
-
-      awsIotClient.subscribe(new AWSIotTopic(Topic1, Topic1Qos) {
-        @Override
-        public void onMessage(AWSIotMessage message) {
-          // ?�� 메서?��?�� ?��버에?�� 메시�?�? ?��?�� ?�� ?�� 마다 ?��출된?��.
-          //System.out.println(System.currentTimeMillis() + ": <<< " + message.getStringPayload());
-
-
-            @SuppressWarnings("unchecked")
-            Map<String,Object> data = new Gson().fromJson(message.getStringPayload(), Map.class);
-
-            if (data.get("sensor").equals("dht")) {
-                humidity = (String)data.get("humi");
-                temperature = (String)data.get("temp");
-            } else if (data.get("sensor").equals("dust")) {
-                dustDensityug = (String)data.get("dust");
-            }
-
-        }
-      }, true);
-
-      System.out.printf("'%s' 구독�?...", Topic1);
-
-    } catch (Exception e) {
-      throw new RuntimeException("AWS IoT ?��버에 ?���? ?��?��!");
+      if (awsIotClient == null && certificateFile != null && privateKeyFile != null) {
+        KeyStorePasswordPair pair = SampleUtil.getKeyStorePasswordPair(
+            certificateFile,
+            privateKeyFile);
+  
+        awsIotClient = new AWSIotMqttClient(
+            clientEndpoint,
+            clientId,
+            pair.keyStore,
+            pair.keyPassword);
+      }
+  
+      if (awsIotClient == null) {
+          throw new IllegalArgumentException("인증서와 신용장이 유효하지 않아 AWSIotMqttClient 생성 실패!");
+      }
+  
+      try {
+        awsIotClient.connect();
+        System.out.println("AWS IoT 서버에 연결됨!");
+  
+        awsIotClient.subscribe(new AWSIotTopic(Topic1, Topic1Qos) {
+          @Override
+          public void onMessage(AWSIotMessage message) {
+            // 이 메서드는 서버에서 메시지를 수신 할 때 마다 호출된다.
+            //System.out.println(System.currentTimeMillis() + ": <<< " + message.getStringPayload());
+  
+  
+              @SuppressWarnings("unchecked")
+              Map<String,Object> data = new Gson().fromJson(message.getStringPayload(), Map.class);
+  
+              if (data.get("sensor").equals("dht")) {
+                  humidity = (String)data.get("humi");
+                  temperature = (String)data.get("temp");
+              } else if (data.get("sensor").equals("dust")) {
+                  dustDensityug = (String)data.get("dust");
+              }
+  
+          }
+        }, true);
+  
+        System.out.printf("'%s' 구독중...", Topic1);
+        
+        
+        awsIotClient.subscribe(new AWSIotTopic(Topic2, Topic2Qos) {
+          @Override
+          public void onMessage(AWSIotMessage message) {
+            // 이 메서드는 서버에서 메시지를 수신 할 때 마다 호출된다.
+            System.out.println(System.currentTimeMillis() + ": <<< " + message.getStringPayload());
+  
+  
+              @SuppressWarnings("unchecked")
+              Map<String,Object> controlvalue = new Gson().fromJson(message.getStringPayload(), Map.class);
+  
+              if (controlvalue.get("control").equals("humidifier")) {
+                  humidifier = (String)controlvalue.get("value");
+              } else if (controlvalue.get("control").equals("ventilator")) {
+                  ventilator = (String)controlvalue.get("value");
+              }
+          }
+        }, true);
+  
+        System.out.printf("'%s' 구독중...", Topic2);
+  
+      } catch (Exception e) {
+        throw new RuntimeException("AWS IoT 서버에 연결 실패!");
+      }
+    } catch(Exception e) {
+      //e.printStackTrace();
+      throw e;
     }
   }
   /*

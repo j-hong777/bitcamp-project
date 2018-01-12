@@ -68,8 +68,6 @@ dev01.on('message', function(topic, payload) {
 
 });
 
-    var temp_temp = global.temp;
-    console.log(temp_temp);
 /*
 function subscribe (deviceName, topic, callback) {
     devices[deviceName].on('message', function(topic, payload) {
