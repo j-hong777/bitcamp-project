@@ -16,16 +16,17 @@ const addMessage = (message, handler) => {
 const getHandler = (message) => {
   for (var key in messageHandler) { // 반복문을 돌면서 key(=message) 값을 처리할 메시지가 있나 확인
     if (message.indexOf(key) != -1) { // -1이 아니라면 true
-
-      //  if (message.indexOf(key) && message.indexOf(key) != -1) {
-      //   return messageHandler[key]; // key값이 있는 메시지 나옴.
-      //}
-
+        /*
+        if (message.indexOf(key) && message.indexOf(key) != -1) {
+         return messageHandler[key]; // key값이 있는 메시지 나옴.
+        }
+        */
       return messageHandler[key]; // key값이 있는 메시지 나옴.
     }
   }
   return null;
 };
+
 /*
 addMessage('help', (recipientId) => {
   var messageData = {
@@ -124,6 +125,8 @@ addMessage('온도', (recipientId, messageText) => {
     //sendAPI.typingOff(recipientId);
     //awsIoT.subscribe('topic_1', 'temp', (msg) => {
     sendAPI.sendTextMessage(recipientId, '현재온도: ' + global.temp + '°C');
+
+
     //});
 
 });
@@ -205,8 +208,7 @@ addMessage("미세먼지", (recipientId) => {
     }
   };
 
-
-  sendAPI.sendTextMessage(recipientId, '현재미세먼지: ' + global.dust + '[ug/m3]');
+  sendAPI.sendTextMessage(recipientId, '현재미세먼지: ' + global.dust+ '[ug/m3]');
   api.callMessagesAPI(messageData);
 })
 

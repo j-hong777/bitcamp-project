@@ -44,7 +44,6 @@ dev01.on('connect', function() {
 
 });
 
-
 // 구독하기로 설정한 사서함에 메시지가 도착할 때 마다
 // AWS IoT 서버에 이 프로그램에 알려준다.
 // 그때 호출될 메서드를 추가한다.
@@ -53,183 +52,37 @@ dev01.on('message', function(topic, payload) {
     console.log('사서함 이름:', topic);
     var dataObj = payload.toString('utf-8')
     var obj = JSON.parse(dataObj)
-    console.log('받은 메시지:', obj);
-    var temp = obj.temp;
-    var humi = obj.humi;
-    var dust = obj.dust;
-    global.temp = temp;
-    global.humi = humi;
-    global.dust = dust;
-    console.log(global.temp);
-    console.log(global.humi);
-    console.log(global.dust);
-       
-    console.log('-------------------------');
 
-});
+    var sensor = obj.sensor
+    var temp = obj.temp
+    var humi = obj.humi
+    var dust = obj.dust
 
-/*
-function subscribe (deviceName, topic, callback) {
-    devices[deviceName].on('message', function(topic, payload) {
-        var dataObj = payload.toString('utf-8')
-        var obj = JSON.parse(dataObj)
-        var temp = obj.temp
-        var humi = obj.humi
-    // if msg
-    callback(temp);
-    });
-}
+    if (sensor == 'dht') {
+        global.temp = obj.temp;
+        global.humi = obj.humi;
+    } else if (sensor == 'dust') {
+        global.dust = obj.dust;
+    }
 
-*/
-function subscribe (message, temp, callback) {
-    dev01.on('message', function(topic, payload) {
-        var dataObj = payload.toString('utf-8')
-        var obj = JSON.parse(dataObj)
+    /*
         var temp = obj.temp
         var humi = obj.humi
         var dust = obj.dust
+        global.temp = obj.temp;
+        global.humi = obj.humi;
+        global.dust = obj.dust;
+    */
 
-       // global.temp = temp;
-      //  global.humi = humi;
-       // global.dust = dust;
-     
+console.log('받은 메시지:', obj);
 
-    callback(temp);
-    //callback(humi);
-    callback(dust);
-    });
-}
-
-
-
-
-/*
-function subscribe (deviceName, topic, dataObj) {
-    devices[deviceName].subscribe(topic, JSON.parse(dataObj))
-    var obj = JSON.parse(dataObj)
-    var temp = obj.temp
-    var humi = obj.humi
-    console.log(temp)
-}
-/*
-dict = json.loads(message.payload.decode('UTF-8'))
-elif dict['control'] == 'ventilator':
-        if dict['value'] == 'on':
-            ventilator.onVentilator(True)
-        else :
-            ventilator.onVentilator(False)
-
-subscribe('dev01', 'topic_1', payload.toString(dataObj))
-
-function publish(deviceName, topic, dataObj){
-    devices[deviceName].publish(topic, JSON.stringify(dataObj));
-}
-
-awsIoT.publish('dev01', 'topic_2', {
-  control: 'humidifier',
-  value: 'on'
+console.log('-------------------------');
 });
 
-
-/*
-dev01.on('message', function(topic, payload) {
-    if ( == "dht") {
-        var dht = payload.toString('utf-8');
-        var  = JSON.parse(dht);
-        console.log(temp);
-    }
-});
-
-/*
-server.on('published', function (packet, client) {
-    if (packet.topic == 'presence') {
-        var stringBuf = packet.payload.toString('utf-8');
-        var obj = JSON.parse(stringBuf);
-        console.log(obj);
-    }
-});
-*/
-/*
-dev01.on('message', function(topic, payload) {
-    if (topic.equals('topic_1') & payload.toString("dht"))
-
-
-});
-
-awsIotClient.subscribe(new AWSIotTopic(Topic1, Topic1Qos) {
-  @Override
-  public void onMessage(AWSIotMessage message) {
-    // 이 메서드는 서버에서 메시지를 수신 할 때 마다 호출된다.
-    //System.out.println(System.currentTimeMillis() + ": <<< " + message.getStringPayload());
-
-
-      @SuppressWarnings("unchecked")
-      Map<String,Object> data = new Gson().fromJson(message.getStringPayload(), Map.class);
-
-      if (data.get("sensor").equals("dht")) {
-          humidity = (String)data.get("humi");
-          temperature = (String)data.get("temp");
-      } else if (data.get("sensor").equals("dust")) {
-          dustDensityug = (String)data.get("dust");
-      }
-
-  }
-}, true);
-*/
-/*
-function subscribe(deviceName, topic, payload){
-    devices[deviceName].subscribe(topic, payload.toString("sensor").equals("dht"))
-            temp : res.query.temp
-            humi : res.query.humi
-
-}
-*/
-/*
-var temp = toString(res.query.temp);
-var humi = toString(res.query.humi);
-
-subscribe('dev01', 'topic_1', {
-
-        humidity : res.query.temp,
-        temperature : res.query.humi,
-        dustDensityug : res.query.dust
-
-});
-*/
-/*
-dev01.on('message', function(topic, payload) {
-    var dataObj = payload.toString('utf-8')
-    var obj = JSON.parse(dataObj)
-    var temp = obj.temp
-    console.log(temp);
-});
-
-function subscribe(deviceName, topic, dataObj){
-    devices[deviceName].subscribe(topic, payload.toString(dataObj))
-}
-
-subscribe('dev01', 'topic_1', dataObj) {
-    var obj = JSON.parse(dataObj)
-    var temp = obj.temp
-    console.log(temp);
-})
-
-*/
-/*
-function subscribe(deviceName, topic, dataObj) {
-
-    var dataObj = payload.toString('utf-8')
-    var obj = JSON.parse(dataObj)
-    var temp = obj.temp
-    var humi = obj.humi
-    devices[deviceName].subscribe(topic, payload.toString(dataObj))
-}
-*/
 function publish(deviceName, topic, dataObj){
     devices[deviceName].publish(topic, JSON.stringify(dataObj));
 }
 
 module.exports = {
-    subscribe,
     publish
 };
