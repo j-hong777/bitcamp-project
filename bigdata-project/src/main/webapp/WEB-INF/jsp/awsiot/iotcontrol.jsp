@@ -40,24 +40,10 @@
 <body class="subpage">
 
   <!-- Header -->
-  <header id="header">
-    <div class="logo"><a href="${pageContext.servletContext.contextPath}/index.html">Donny <span>by TEMPLATED</span></a></div>
-    <a href="#menu">Menu</a>
-  </header>
+	<jsp:include page="../header.jsp"></jsp:include>
 
-  <!-- Nav -->
-  <nav id="menu">
-    <ul class="links">
-      <li><a href="${pageContext.servletContext.contextPath}/index.html">메인</a></li>
-      <li><a href="${pageContext.servletContext.contextPath}/loginmain.html">로그인</a></li>
-      <li><a href="${pageContext.servletContext.contextPath}/mypage.html">마이페이지</a></li>
-      <li><a href="${pageContext.servletContext.contextPath}/store_management.html">매장관리</a></li>
-      <li><a href="${pageContext.servletContext.contextPath}/menu_info.html">메뉴관리?</a></li>
-      <li><a href="${pageContext.servletContext.contextPath}/elements.html">빅데이터</a></li>
-      <li><a href="${pageContext.servletContext.contextPath}/noticeboard.html">게시판</a></li>
-      <li><a href="${pageContext.servletContext.contextPath}/index_admin.html">Admin Only</a></li>
-    </ul>
-  </nav>
+	<!-- Nav -->
+	<jsp:include page="../navi.jsp"></jsp:include>
 
   <!-- Modal -->
   <div class="container">
@@ -300,18 +286,8 @@
               </section>
             </div>
 
-  <!-- Footer -->
-  <footer id="footer">
-    <div class="copyright">
-      <ul class="icons">
-        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-        <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-        <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
-      </ul>
-      <p>&copy; Untitled. All rights reserved. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
-    </div>
-  </footer>
+  	<!-- Footer -->
+	<jsp:include page="../footer2.jsp"></jsp:include>
 
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="${pageContext.servletContext.contextPath}/assets/js/bootstrap.min.js"></script>
