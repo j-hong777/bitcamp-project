@@ -15,7 +15,7 @@ import bigdata3.service.AwsIotService;
 @Controller
 @RequestMapping("/awsiot/")
 public class AwsIotControl {
-
+  
   @Autowired
   AwsIotService awsIotService;
   
