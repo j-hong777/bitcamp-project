@@ -19,12 +19,12 @@ public class AwsIotControl {
   @Autowired
   AwsIotService awsIotService;
   
-  @RequestMapping("iot_control")
+  @RequestMapping("iotcontrol")
   public String getHumiTempDust(Model model) {
     
     model.addAttribute("message", awsIotService.getMessage());
     
-    return "awsiot/iot_control";
+    return "awsiot/iotcontrol";
   }
   
   @RequestMapping("iot_control_state")
