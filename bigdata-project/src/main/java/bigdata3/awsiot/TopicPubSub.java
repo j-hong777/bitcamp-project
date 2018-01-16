@@ -25,9 +25,6 @@ public class TopicPubSub {
   private String clientEndpoint = "a1lqcwo4cmer5o.iot.ap-northeast-2.amazonaws.com";
   private String clientId = "client3";
 
-  //private String certificateFile = "C://Users/subee/Desktop/a/connect_device_package/dev01.cert.pem";
-  //private String privateKeyFile = "C://Users/subee/Desktop/a/connect_device_package/dev01.private.key";
-  
   private String certificateFile = "/home/ec2-user/vars/aws-iot/dev01/dev01.cert.pem";
   private String privateKeyFile = "/home/ec2-user/vars/aws-iot/dev01/dev01.private.key";
 
@@ -75,17 +72,17 @@ public class TopicPubSub {
       }
   
       if (awsIotClient == null) {
-          throw new IllegalArgumentException("ì¸ì¦ì„œì™€ ì‹ ìš©ì¥ì´ ìœ íš¨í•˜ì§€ ì•Šì•„ AWSIotMqttClient ìƒì„± ì‹¤íŒ¨!");
+          throw new IllegalArgumentException("ÀÎÁõ¼­¿Í ½Å¿ëÀåÀÌ À¯È¿ÇÏÁö ¾Ê¾Æ AWSIotMqttClient »ı¼º ½ÇÆĞ!");
       }
   
       try {
         awsIotClient.connect();
-        System.out.println("AWS IoT ì„œë²„ì— ì—°ê²°ë¨!");
+        System.out.println("AWS IoT ¼­¹ö¿¡ ¿¬°áµÊ!");
   
         awsIotClient.subscribe(new AWSIotTopic(Topic1, Topic1Qos) {
           @Override
           public void onMessage(AWSIotMessage message) {
-            // ì´ ë©”ì„œë“œëŠ” ì„œë²„ì—ì„œ ë©”ì‹œì§€ë¥¼ ìˆ˜ì‹  í•  ë•Œ ë§ˆë‹¤ í˜¸ì¶œëœë‹¤.
+            // ÀÌ ¸Ş¼­µå´Â ¼­¹ö¿¡¼­ ¸Ş½ÃÁö¸¦ ¼ö½Å ÇÒ ¶§ ¸¶´Ù È£ÃâµÈ´Ù.
             //System.out.println(System.currentTimeMillis() + ": <<< " + message.getStringPayload());
   
   
@@ -102,13 +99,13 @@ public class TopicPubSub {
           }
         }, true);
   
-        System.out.printf("'%s' êµ¬ë…ì¤‘...", Topic1);
+        System.out.printf("'%s' ±¸µ¶Áß...", Topic1);
         
         
         awsIotClient.subscribe(new AWSIotTopic(Topic2, Topic2Qos) {
           @Override
           public void onMessage(AWSIotMessage message) {
-            // ì´ ë©”ì„œë“œëŠ” ì„œë²„ì—ì„œ ë©”ì‹œì§€ë¥¼ ìˆ˜ì‹  í•  ë•Œ ë§ˆë‹¤ í˜¸ì¶œëœë‹¤.
+            // ÀÌ ¸Ş¼­µå´Â ¼­¹ö¿¡¼­ ¸Ş½ÃÁö¸¦ ¼ö½Å ÇÒ ¶§ ¸¶´Ù È£ÃâµÈ´Ù.
             System.out.println(System.currentTimeMillis() + ": <<< " + message.getStringPayload());
   
   
@@ -123,10 +120,10 @@ public class TopicPubSub {
           }
         }, true);
   
-        System.out.printf("'%s' êµ¬ë…ì¤‘...", Topic2);
+        System.out.printf("'%s' ±¸µ¶Áß...", Topic2);
   
       } catch (Exception e) {
-        throw new RuntimeException("AWS IoT ì„œë²„ì— ì—°ê²° ì‹¤íŒ¨!");
+        throw new RuntimeException("AWS IoT ¼­¹ö¿¡ ¿¬°á ½ÇÆĞ!");
       }
     } catch(Exception e) {
       //e.printStackTrace();
