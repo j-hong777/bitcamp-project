@@ -251,46 +251,54 @@
                                   data-toggle="modal" style="background-color: crimson;">습도관리</a>
                           </div>
 
-                <div class="col align-center">
-                  <div class="image round fit">
-                    <img src="${pageContext.servletContext.contextPath}/images/fine_dust01.jpg" alt="" />
-                  </div>
-                  <div class="panel-group">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <!-- AWSIoT에 들어간 실내 미세먼지 값-->
-                          <a data-toggle="collapse" href="#collapse3">현재 실내 미세먼지: <span id="dustDensityug">${message.dustDensityug}</span> [ug/m3]<br></a>
-                        </h4>
-                      </div>
-                      <div id="collapse3" class="panel-collapse collapse">
-                        <ul class="list-group">
-                          <li class="list-group-item">현재 상태 : 나쁨</li>
-                          <li class="list-group-item">기기 전원상태
-                          <label>
-                            <input data-device="ventilator" name="switch-ventilator-5" class="ace ace-switch ace-switch-3 iot-switch" type="checkbox" />
-                            <span class="lbl"></span>
-                          </label></li>
-                          <li class="list-group-item">Auto Setting 활성
-                          <label>
-                            <input data-device="ventilator_auto" name="switch-ventilator_auto-6" class="ace ace-switch ace-switch-2 iot-switch" type="checkbox" />
-                            <span class="lbl"></span>
-                          </label></li>
-                          <li class="list-group-item">Auto Setting 설정 미세먼지 : 10μg/m3</li>
-                        </ul>
+                          <div class="col align-center">
+                            <div class="image round fit">
+                              <img
+                                src="${pageContext.servletContext.contextPath}/images/fine_dust01.jpg"
+                                alt="" />
+                            </div>
+                            <div class="panel-group">
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title">
+                                    <!-- AWSIoT에 들어간 실내 미세먼지 값-->
+                                    <a data-toggle="collapse" href="#collapse3">현재 실내 미세먼지:
+                                      <span id="dustDensityug">${message.dustDensityug}</span>
+                                      [ug/m3]<br>
+                                    </a>
+                                  </h4>
+                                </div>
+                                <div id="collapse3" class="panel-collapse collapse">
+                                  <ul class="list-group">
+                                    <li class="list-group-item">현재 상태 : 나쁨</li>
+                                    <li class="list-group-item">기기 전원상태 <label> <input
+                                        data-device="ventilator" name="switch-ventilator-5"
+                                        class="ace ace-switch ace-switch-3 iot-switch"
+                                        type="checkbox" /> <span class="lbl"></span>
+                                    </label></li>
+                                    <li class="list-group-item">Auto Setting 활성 <label>
+                                        <input data-device="ventilator_auto"
+                                        name="switch-ventilator_auto-6"
+                                        class="ace ace-switch ace-switch-2 iot-switch"
+                                        type="checkbox" /> <span class="lbl"></span>
+                                    </label></li>
+                                    <li class="list-group-item">Auto Setting 설정 미세먼지 :
+                                      10μg/m3</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <a href="#my-modal3" class="button" role="button"
+                              data-toggle="modal" style="background-color: crimson;">미세먼지관리</a>
+                          </div>
+                        </div>
+          
                       </div>
                     </div>
                   </div>
-                  <a href="#" class="button">미세먼지관리</a>
                 </div>
-              </div>
-
+              </section>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
 
   <!-- Footer -->
   <footer id="footer">
